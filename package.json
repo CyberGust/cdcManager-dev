@@ -1,0 +1,26 @@
+{
+  "name": "cdcmanager-dev",
+  "version": "2.0.0",
+  "description": "ERP designed to help Beer-Men and they business.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CyberGust/cdcManager-dev.git"
+  },
+  "keywords": [
+    "mongoDB",
+    "expressJS",
+    "nodeJS"
+  ],
+  "author": "Gustavo Ilha Morais",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/CyberGust/cdcManager-dev/issues"
+  },
+  "homepage": "https://github.com/CyberGust/cdcManager-dev#readme"
+}
