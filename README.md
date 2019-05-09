@@ -3,10 +3,10 @@ ERP designed to help Beer-Men and their business.
 
 To do:
     Create => {
-		User[]:
+		User[ OK ]:
 			Name, Email, Phone_number, Password, isAdmin, Creation_date,
 
-		Customer[]:
+		Customer[ OK ]:
 			Name, Email, Phone_number, Document, Address, Creation_date,
 
 		Category[]:
@@ -19,7 +19,10 @@ To do:
 			Category, Sub-category, Name, Id, Status, Creation_date,
 
 		Sale[]:
-			Customer, Goods, Id, Status, Details, Creation_date
+			Customer, Goods, Status, Details, Creation_date,
+
+		Rent[]:
+			Customer, Goods, Status, Details, Creation_date
 	};
 
     Read => {
