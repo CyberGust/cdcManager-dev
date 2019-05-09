@@ -10,21 +10,21 @@
 // Routes
     // Home //
         router.get("/", (req, res) => {
-            res.render("user/home");
+            res.render("user/dashboard");
         });
     
     // Register new user
         router.get("/register", (req, res) => {
-            res.render("user/register");
+            res.render("user/register")
         });
 
-        router.post("/register", (req, res) => {
+        router.post("/register", async (req, res) => {
             let error = [];
             const username = req.body.username;
             const phone = req.body.phone;
             const email = req.body.email;
             const password = req.body.password;
-
+            
             // Begin of validation
             if (!username || username === undefined || typeof username === null) {
                 error.push({
@@ -66,9 +66,11 @@
 
             if (error.length > 0) {
                 console.log(error);
+                req.flash("error", "teste");
                 res.redirect("/user/register");
-            } else {
-                User.findOne({ email: req.body.email })
+            } else { 
+                
+                await User.findOne({ email:email })
                     .then(user => {
                         if (user) {
                             error.push({ error_message: "Email já cadastrado!" });
@@ -79,17 +81,17 @@
                         } else {
                             // Starting the user creation at Database
                             const newUser = new User({
-                                name: name,
-                                phone: phone,
-                                email: email,
-                                password: password
+                                name: req.body.username,
+                                phone: req.body.phone,
+                                email: req.body.email,
+                                password: req.body.password
                             });
 
                             // Password encryption
                             bcrypt.genSalt(10, (error, salt) => {
                                 bcrypt.hash(newUser.password, salt, (error, hash) => {
                                     if (error) {
-                                        res.redirect("/user/register");
+                                        res.send(error);
                                     }
 
                                     // Forgeting what was typed and saving as encrypted form
@@ -105,6 +107,9 @@
                                         });
                                 });
                             });
+
+                            // console.log(username, phone, email, password)
+                            
                         }
                     })
                     .catch(error => {
@@ -118,9 +123,9 @@
             res.render("user/login");
         });
 
-        router.post("/login", (req, res) => {
+        router.post("/login", (req, res, next) => {
             passport.authenticate("local", {
-                successRedirect: "/user/home",
+                successRedirect: "/user/",
                 failureRedirect: "/user/login",
                 failureFlash: true
             })(req, res, next);

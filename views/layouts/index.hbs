@@ -14,7 +14,12 @@
   <link href="/css/sb-admin.css" rel="stylesheet">
 </head>
 <body class="bg-dark">
-
+      {{#if error}}
+        <div class="alert alert-danger">{{error}}</div>
+      {{else}}
+      
+      {{/if}}
+      
       {{{body}}}
 
 
