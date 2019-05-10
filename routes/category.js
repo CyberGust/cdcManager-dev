@@ -8,12 +8,16 @@ require("../models/Subcategory");
 const Subcategory = mongoose.model("subcategory");
 // Routes//
 // Home 
-    router.get("/", (req, res) => {
-        Category.find()
-            .sort({ name: "asc" })
-            .then(categories => {
-                res.render("category/dashboard", { categories: categories });
-            });
+    router.get("/", async (req, res) => {
+        const categories = await Category.find({}).sort({name: "asc" });
+        const subcategories = await Subcategory.find({}).sort({name: "asc" });
+
+        res.render("category/dashboard", { categories:categories, subcategories:subcategories });
+        // await Category.find()
+        //     .sort({ name: "asc" })
+        //     .then((categories) => {
+        //         res.render("category/dashboard", { categories:categories });
+        //     });
     });
 
 // Create Category
@@ -146,7 +150,7 @@ const Subcategory = mongoose.model("subcategory");
                             );
                         });
 
-                        await Category.findOne({ name: category }).then(
+                        await Category.findOne({ _id: category }).then(
                             category => {
                                 if (category) {
                                     category.subcategory.push(newSubcategory.name);
@@ -168,20 +172,26 @@ const Subcategory = mongoose.model("subcategory");
     });
 
 // Delete
-    router.post("/delete", (req, res) => {
+    router.post("/delete", async (req, res) => {
         try {
-            Category.findOneAndDelete({ _id: req.body.id }).then(() => {
+            
+            await Category.findOneAndDelete({ _id: req.body.id }).then(() => {
                 res.redirect("/category");
             });
         } catch (error) {
-            if (error === null) {
-                Subcategory.findOneAndDelete({ _id: req.body.id }).then(() => {
-                    res.redirect("/subcategory");
-                });
-            } else {
-                console.log(error);
-            }
+            console.log(error);
         }
+    });
+
+    router.post("/deletee", (req, res) => {
+        try {
+            Subcategory.findOneAndDelete({ _id: req.body.id }).then(() => {
+                res.redirect("/category");
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
     });
 
 module.exports = router;

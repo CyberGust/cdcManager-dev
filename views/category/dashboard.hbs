@@ -4,15 +4,23 @@
     {{>_sidebar}}
     <div id="content-wrapper">
       <div class="container-fluid">
-        {{>_breadcumbs}}
+        
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/category/create-category">Nova Categoria</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/category/create-subcategory">Nova Subcategoria</a>
+          </li>
+          <li class="breadcrumb-item active">Estoque</li>
+        </ol>
         
     <!-- Page Content -->
-      {{>_cards}}
-
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Data Table Example</div>
+            Categorias</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -44,6 +52,49 @@
                     <td>
                       <div class="form-row ml-3">
                         <form action="/category/delete" method="POST">
+                          <input type="hidden" name="id" value="{{_id}}">
+                          <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
+                        </form>
+                        <a href="/customer/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i></td></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                {{/each}}
+              </table>
+            </div>
+          </div>
+
+        
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Subcategorias</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th></th>
+                  </tr>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  {{#each subcategories}}
+                  <tr>
+                    <td>{{name}}</td> 
+                    <td>{{description}}</td>
+                    <td>
+                      <div class="form-row ml-3">
+                        <form action="/category/deletee" method="POST">
                           <input type="hidden" name="id" value="{{_id}}">
                           <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
                         </form>

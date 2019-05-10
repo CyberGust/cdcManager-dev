@@ -55,4 +55,15 @@ router.post("/new", (req, res) => {
         });
 });
 
+router.post("/delete", async (req, res) => {
+    try {
+        
+        await Customer.findOneAndDelete({ _id: req.body.id }).then(() => {
+            res.redirect("/customer");
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 module.exports = router;

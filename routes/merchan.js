@@ -3,18 +3,28 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 require("../models/Merchan");
-const User = mongoose.model("merchan");
+const Merchan = mongoose.model("merchan");
+require("../models/Category");
+const Category = mongoose.model("category");
+require("../models/Subcategory");
+const Subcategory = mongoose.model("subcategory");
 
 // Routes
 // Home //
-    router.get("/", (req, res) => {
-        res.render("merchan/dashboard");
+    router.get("/", async (req, res) => {
+        Merchan.find({}).sort({ name: "asc" }).then(merchandise => {
+            res.render("merchan/dashboard", { merchandise:merchandise });
+        });
     });
 
-// Register new user
-    router.get("/create", (req, res) => {
-        res.send("merchan/create");
-        });
+// Register new merchandise
+    router.get("/create", async (req, res) => {
+        const categories = await Category.find({}).sort({ name: "asc" });
+        const subcategories = await Subcategory.find({}).sort({ name: "asc" });
+        
+        res.render("merchan/create", { categories:categories, subcategories:subcategories });
+
+    });
 
     router.post("/create", async (req, res) => {
         let error = [];
@@ -50,29 +60,31 @@ const User = mongoose.model("merchan");
             res.redirect("/merchan/create");
         } else { 
             
-            await Merchan.findOne({ id:id })
-                .then(merchan => {
-                    if (merchan) {
-                        error.push({ error_message: "'ID' já cadastrado!" });
-                        console.log(error);
-                        res.redirect("/merchan/create");
+            // Starting the user creation at Database
+            const newMerchan = new Merchan({
+                category: req.body.category,
+                subcategory: req.body.subcategory,
+                details: req.body.details,
+                id: req.body.id
+            });
 
-                        // End of validation
-                    } else {
-                        // Starting the user creation at Database
-                        const newMerchan = new Merchan({
-                            category: req.body.category,
-                            subcategory: req.body.subcategory,
-                            details: req.body.details,
-                            id: req.body.id
-                        });
+            newMerchan.save().then(() => {
+                res.redirect("/merchandise");
+            });
                         
-                    }
-                })
-                .catch(error => {
-                res.send(error);
-                });
-            }
-        });
+        }
+    });
+
+    // Delete
+    router.post("/delete", async (req, res) => {
+        try {
+            
+            await Merchan.findOneAndDelete({ _id: req.body.id }).then(() => {
+                res.redirect("/merchandise");
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    });
 
 module.exports = router;

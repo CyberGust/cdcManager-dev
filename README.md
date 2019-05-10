@@ -2,7 +2,7 @@
 ERP designed to help Beer-Men and their business.
 
 # To do:
-Create [4/7] => {
+Create [5/7] => {
 	User[ OK ]:
 		Name, Email, Phone_number, Password, isAdmin, Creation_date,
 
@@ -15,11 +15,8 @@ Create [4/7] => {
 	Sub-category[ OK ]:
 		Category, Description,
 
-	Merchan[]:
+	Merchan[ OK ]:
 		Category, Sub-category, Details, Id, Status, Creation_date,
-		(
-			tornar todo model Merchan criado, filho do model Subcategory relacionando-o no array do model.
-		)
 
 	Sale[]:
 		Customer, Goods, Status, Details, Creation_date,
@@ -28,20 +25,20 @@ Create [4/7] => {
 		Customer, Goods, Status, Details, Creation_date
 }
 
-Read [3/7] => {
+Read [4.3/5] => {
 	User[ OK ]
 	Customer[ OK ]
 	Category[ OK ]
-	Sub-category[]
+	Sub-category[ OK ]
 	Merchandise[
-		All[]
+		All[ OK ]
 		Sale[]
 		Rent[]
 		Consumable[]
 	]
 }
 
-Update [0/7] => {
+Update [0/5.3] => {
 	User[]
 	Customer[]
 	Category[]
@@ -52,14 +49,10 @@ Update [0/7] => {
 		from-Consumable[]
 	]
 }
-Delete [1/7] => {
+Delete [4/5] => {
 	User[]
-	Customer[]
+	Customer[ OK ]
 	Category[ OK ]
-	Sub-category[]
-	Merchandise[
-		from-Sale[]
-		from-Rent[]
-		from-Consumable[]
-	]
+	Sub-category[ OK ]
+	Merchandise[ OK ]
 }

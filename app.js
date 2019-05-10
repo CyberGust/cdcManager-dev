@@ -64,7 +64,7 @@ require("./config/auth")(passport);
 
 // Routes //
     app.get("/", (req, res) => {
-        res.send("/");
+        res.render("home");
     });
     app.use("/user", user);
     app.use("/customer", customer);
