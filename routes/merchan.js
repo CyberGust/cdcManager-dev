@@ -13,7 +13,7 @@ const User = mongoose.model("merchan");
 
 // Register new user
     router.get("/create", (req, res) => {
-        res.render("merchan/create");
+        res.send("merchan/create");
         });
 
     router.post("/create", async (req, res) => {
