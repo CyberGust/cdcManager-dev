@@ -1,7 +1,7 @@
 // Modules
 const express = require("express");
 const app = express();
-const hbs = require("express-handlebars");
+const expbs = require("express-handlebars");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -17,8 +17,23 @@ require("./config/auth")(passport);
         app.use(require("method-override")());
 
     // Handlebars //
-        app.engine("hbs", hbs({ defaultLayout: "index", extname: "hbs" }));
+        const hbs = expbs.create({
+            // ENGINE //
+            defaultLayout: "index",
+            layoutsDir: path.join(__dirname, "views/Layout"),
+            partialsDir: path.join(__dirname, "views/Components"),
+            extname: ".hbs",
+
+            // Helpers //
+            helpers: {
+                
+
+            }
+        });
+
+        app.engine("hbs", hbs.engine);
         app.set("view engine", "hbs");
+
 
     // Session //
         app.use(
@@ -61,6 +76,7 @@ require("./config/auth")(passport);
     const customer = require("./routes/customer");
     const merchan = require("./routes/merchan");
     const category = require("./routes/category");
+    const task = require("./routes/task");
 
 // Routes //
     app.get("/", (req, res) => {
@@ -70,6 +86,7 @@ require("./config/auth")(passport);
     app.use("/customer", customer);
     app.use("/merchandise", merchan);
     app.use("/category", category);
+    app.use("/task", task);
 
 // Express Server //
     const PORT = process.env.PORT || 8000;

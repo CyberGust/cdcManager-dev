@@ -16,13 +16,11 @@ Create [5/7] => {
 		Category, Description,
 
 	Merchan[ OK ]:
-		Category, Sub-category, Details, Id, Status, Creation_date,
+		Category, Sub-category, Details, Id, Creation_date,
 
-	Sale[]:
-		Customer, Goods, Status, Details, Creation_date,
-
-	Rent[]:
-		Customer, Goods, Status, Details, Creation_date
+	Task [ OK ]:
+		Customer, Merchandise, Gender, Details
+		Criar collection "Tarefas em execução" e "Tarefas concluídas"
 }
 
 Read [4.3/5] => {
@@ -30,6 +28,7 @@ Read [4.3/5] => {
 	Customer[ OK ]
 	Category[ OK ]
 	Sub-category[ OK ]
+	Task [ OK ]
 	Merchandise[
 		All[ OK ]
 		Sale[]
@@ -55,4 +54,5 @@ Delete [4/5] => {
 	Category[ OK ]
 	Sub-category[ OK ]
 	Merchandise[ OK ]
+	Task [ OK ]
 }

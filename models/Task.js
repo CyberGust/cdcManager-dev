@@ -1,22 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Merchan = new Schema ({
-    category: {
-        type: Array,
+const Task = new Schema ({
+    customer: {
+        type: String,
         required: true
     },
-    subcategory: {
+    merchandise: {
         type: Array,
         required: false
     },
+    gender: {
+        type: String,
+        required: true,
+    },
     details: {
         type: String,
-        required: true
-    },
-    id: {
-        type: String,
-        require: false
+        required: false
     },
     createdAt: {
         type: Date,
@@ -24,4 +24,4 @@ const Merchan = new Schema ({
     }
 });
 
-mongoose.model('merchan', Merchan);
+mongoose.model('task', Task);

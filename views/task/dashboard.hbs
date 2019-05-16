@@ -4,70 +4,75 @@
     {{>_sidebar}}
     <div id="content-wrapper">
       <div class="container-fluid">
-        
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="/merchandise/create">Novo Produto</a>
+            <a href="/task/create">Nova Tarefa</a>
           </li>
-          <li class="breadcrumb-item active">Estoque</li>
+          <li class="breadcrumb-item active">Central de Tarefas</li>
         </ol>
         
     <!-- Page Content -->
 
+        <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Mercadorias</div>
+            Tarefas</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Descrição</th>
+                    <th>Cliente</th>
+                    <th>Produto(s)</th>
+                    <th>Gênero</th>
+                    <th>Detalhes</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
-                  <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Descrição</th>
+                    <th>Cliente</th>
+                    <th>Produto(s)</th>
+                    <th>Gênero</th>
+                    <th>Detalhes</th>
                     <th></th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  {{#each merchandise}}
+                  {{#each tasks}}
                   <tr>
-                    <td>{{id}}</td>
-                    <td>{{subcategory}}</td> 
+                    <td>{{customer}}</td>
+                    <td>{{merchandise}}</td>
+                    <td>{{gender}}</td>
                     <td>{{details}}</td>
                     <td>
                       <div class="form-row ml-3">
-                        <form action="/merchandise/delete" method="POST">
+                        <form action="/task/delete" method="POST">
                           <input type="hidden" name="id" value="{{_id}}">
                           <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
                         </form>
-                        <a href="/merchandise/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i></td></a>
+                        <a href="/task/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i></td></a>
                       </div>
+                    </td>
                   </tr>
+                  {{/each}}
                 </tbody>
-                {{/each}}
               </table>
             </div>
           </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
 
-    
-    
       </div>
+
     <!-- /.container-fluid -->
 
     {{>_footer}}
     <!-- /.content-wrapper -->
-  </div>
+    </div>
+</div>
   <!-- /#wrapper -->
   {{>_logout}}
   {{>_scrolltop}}
@@ -78,6 +83,5 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin.min.js"></script>
-  <script src="js/demo/datatables-demo.js"></script>
 </body>
 </html>

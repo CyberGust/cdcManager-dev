@@ -62,10 +62,10 @@ const Subcategory = mongoose.model("subcategory");
             
             // Starting the user creation at Database
             const newMerchan = new Merchan({
-                category: req.body.category,
-                subcategory: req.body.subcategory,
-                details: req.body.details,
-                id: req.body.id
+                category: category,
+                subcategory: subcategory,
+                details: details,
+                id: id
             });
 
             newMerchan.save().then(() => {

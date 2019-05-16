@@ -6,6 +6,7 @@ require("../models/Category");
 const Category = mongoose.model("category");
 require("../models/Subcategory");
 const Subcategory = mongoose.model("subcategory");
+
 // Routes//
 // Home 
     router.get("/", async (req, res) => {
@@ -157,8 +158,10 @@ const Subcategory = mongoose.model("subcategory");
                                     category.save();
                                     res.redirect("/category");
                                 } else {
-                                    console.log("Não achei, chefe. D':");
-                                    res.redirect("/category");
+                                    setTimeout(() => {
+                                        res.redirect("/category");
+                                    }, 3000);
+                                    
                                 }
                             }
                         );

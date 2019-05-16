@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Criar nova <b>Tarefa</b></div>
+        <div class="card-body">
+            <form method="POST" action="/task/create">
+                <div class="form-group">
+                        <div class="form-label-group mb-3 col-md-6">
+                            <select class="form-control" name="customer">
+                                <option value="">Selecione um cliente</option>
+                                {{#each customers}}
+                                <option value="{{name}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    <div class="form-label-group col-md-6">
+                        <input type="text" name="details" class="form-control mb-3" required="required">
+                        <label for="details">Detalhes</label>
+                    </div>
+                    <div class=" form-label-group mb-3 col-md-6">
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" value="rent" checked>
+                                <label class="form-check-label" for="rent">
+                                    Aluguel
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" value="consumable">
+                                <label class="form-check-label" for="consumable">
+                                    Consumo
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" value="sell">
+                                <label class="form-check-label" for="sell">
+                                    Venda
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{#each merchandise}}
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" name="merchandise" value="{{category}} {{subcategory}}">
+                            <label class="form-check-label" for="merchandise">{{category}} {{subcategory}}</label>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div class="col-md-6">
+                    <div class="row">
+                        <button type="submit" class="ml-3 btn btn-primary btn-md">Salvar</button>
+                        <a href="/task" class="ml-3 btn btn-danger btn-md">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
