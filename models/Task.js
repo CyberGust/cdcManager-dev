@@ -18,6 +18,19 @@ const Task = new Schema ({
         type: String,
         required: false
     },
+    earnings: {
+        type: Number,
+        required: false
+    },
+    status: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
+    deadline: {
+        type: Date,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now() 

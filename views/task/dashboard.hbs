@@ -9,6 +9,9 @@
           <li class="breadcrumb-item">
             <a href="/task/create">Nova Tarefa</a>
           </li>
+          <li class="breadcrumb-item">
+            <a href="/task/completed">Tarefas concluídas</a>
+          </li>
           <li class="breadcrumb-item active">Central de Tarefas</li>
         </ol>
         
@@ -18,7 +21,9 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Tarefas</div>
+            Tarefas
+          </div>
+
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -28,6 +33,7 @@
                     <th>Produto(s)</th>
                     <th>Gênero</th>
                     <th>Detalhes</th>
+                    <th>Valor</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -37,6 +43,7 @@
                     <th>Produto(s)</th>
                     <th>Gênero</th>
                     <th>Detalhes</th>
+                    <th>Valor</th>
                     <th></th>
                   </tr>
                 </tfoot>
@@ -47,13 +54,21 @@
                     <td>{{merchandise}}</td>
                     <td>{{gender}}</td>
                     <td>{{details}}</td>
+                    <td>R${{earnings}}</td>
                     <td>
-                      <div class="form-row ml-3">
+                      <div class="form-row">
+                        
                         <form action="/task/delete" method="POST">
-                          <input type="hidden" name="id" value="{{_id}}">
-                          <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
+                        <input type="hidden" name="id" value="{{_id}}">
+                          <button onclick="deleteCheck()" type="submit" class="btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
                         </form>
-                        <a href="/task/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i></td></a>
+                        
+                        <a href="/task/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i></a>
+                        
+                        <form action="/task/complete" method="POST">
+                          <input type="hidden" name="id" value="{{_id}}">
+                          <button type="submit" class="ml-1 btn btn-primary btn-sm"><i class="fas fa-check"></i></button>                        
+                        </form>
                       </div>
                     </td>
                   </tr>
@@ -62,13 +77,13 @@
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+
+          <div class="card-footer small text-muted">
+            Updated yesterday at 11:59 PM
+          </div>
         </div>
-
       </div>
-
     <!-- /.container-fluid -->
-
     {{>_footer}}
     <!-- /.content-wrapper -->
     </div>

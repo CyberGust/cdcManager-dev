@@ -1,21 +1,22 @@
 <div class="container">
     <div class="card card-register mx-auto mt-5">
-        <div class="card-header">Criar nova <b>Tarefa</b></div>
+        <div class="card-header">
+            Editando <b>Tarefa</b>
+        </div>
+
         <div class="card-body">
-            <form method="POST" action="/task/create">
+            <form method="POST" action="/task/edit">
                 <div class="form-group">
-                        <div class="form-label-group mb-3 col-md-6">
-                            <select class="form-control" name="customer">
-                                <option value="">Selecione um cliente</option>
-                                {{#each customers}}
-                                <option value="{{name}}">{{name}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
+                    <div class="form-label-group mb-3 col-md-6">
+                        <input type="text" name="customer" id="customer" value="{{tasks.customer}}" readonly>
+                        <label for="customer">Cliente</label>
+                    </div>
+
                     <div class="form-label-group col-md-6">
-                        <input type="text" name="details" class="form-control mb-3" >
+                        <input type="text" name="details" class="form-control mb-3">
                         <label for="details">Detalhes</label>
                     </div>
+
                     <div class=" form-label-group mb-3 col-md-6">
                         <div class="form-group">
                             <div class="form-check">
@@ -24,6 +25,7 @@
                                     Aluguel
                                 </label>
                             </div>
+
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="gender" value="consumable">
                                 <label class="form-check-label" for="consumable">
@@ -39,6 +41,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row col-md-10 ml-1">
                         {{#each merchandise}}
                         <div class="form-group form-check">
@@ -47,24 +50,28 @@
                         </div>
                         {{/each}}
                     </div>
+
                     <div class="col-md-6 mb-3">
                         <div class="form-label-group">
                             <input type="date" name="deadline" id="deadline" required>
                             <label for="deadline">Data de Retorno</label>
                         </div>
                     </div>
+
                     <div class="col-md-6 mb-3">
                         <div class="form-label-group">
                             <input type="number" name="earnings" id="earnings" required>
                             <label for="earnings">Valor <span>R$</span></label>
                         </div>
                     </div>
+
                     <div class="col-md-6">
-                    <div class="row">
-                        <button type="submit" class="ml-3 btn btn-primary btn-md">Salvar</button>
-                        <a href="/task" class="ml-3 btn btn-danger btn-md">Cancelar</a>
+                        <div class="row">
+                            <input type="hidden" value="{{tasks._id}}" name="tag" id="tag">
+                            <button type="submit" class="ml-3 btn btn-primary btn-md">Salvar</button>
+                            <a href="/task" class="ml-3 btn btn-danger btn-md">Cancelar</a>
+                        </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>
