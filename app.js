@@ -9,87 +9,102 @@ const path = require("path");
 const flash = require("connect-flash");
 const passport = require("passport");
 require("./config/auth")(passport);
+require("./models/Task");
 
 // Config
-    // Body Parser //
-        app.use(bodyParser.urlencoded({ extended: true }));
-        app.use(bodyParser.json());
-        app.use(require("method-override")());
+// Body Parser //
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(require("method-override")());
 
-    // Handlebars //
-        const hbs = expbs.create({
-            // ENGINE //
-            defaultLayout: "index",
-            layoutsDir: path.join(__dirname, "views/Layout"),
-            partialsDir: path.join(__dirname, "views/Components"),
-            extname: ".hbs",
+// Handlebars //
+const hbs = expbs.create({
+    // ENGINE //
+    defaultLayout: "index",
+    layoutsDir: path.join(__dirname, "views/Layout"),
+    partialsDir: path.join(__dirname, "views/Components"),
+    extname: ".hbs",
 
-            // Helpers //
-            helpers: {
-                
+    // Helpers //
+    helpers: {}
+});
 
-            }
-        });
+app.engine("hbs", hbs.engine);
+app.set("view engine", "hbs");
 
-        app.engine("hbs", hbs.engine);
-        app.set("view engine", "hbs");
+// Session //
+app.use(
+    session({
+        secret: "n0d3",
+        resave: true,
+        saveUninitialized: true
+    })
+);
 
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-    // Session //
-        app.use(
-            session({
-            secret: "n0d3",
-            resave: true,
-            saveUninitialized: true
-            })
-        );
-        
-        app.use(passport.initialize());
-        app.use(passport.session());
-        app.use(flash());
+// Middleware //
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash("success_msg");
+    res.locals.error_msg = req.flash("error_msg");
+    res.locals.error = req.flash("error");
+    res.locals.user = req.user || null;
+    next();
+});
 
-    // Middleware //
-        app.use((req, res, next) => {
-            res.locals.success_msg = req.flash("success_msg");
-            res.locals.error_msg = req.flash("error_msg");
-            res.locals.error = req.flash("error");
-            res.locals.user = req.user || null;
-            next();
-        });
+// Mongoose //
+mongoose.Promise = global.Promise;
+mongoose
+    .connect("mongodb://localhost/dev", { useNewUrlParser: true })
+    .then(() => {
+        console.log("Database connection succefull.");
+    })
+    .catch(e => {
+        console.log("Failed to connect to Database. ERROR:  " + e);
+    });
 
-    // Mongoose //
-        mongoose.Promise = global.Promise;
-        mongoose
-            .connect("mongodb://localhost/dev", { useNewUrlParser: true })
-            .then(() => {
-                console.log("Database connection succefull.");
-            })
-            .catch(e => {
-                console.log("Failed to connect to Database. ERROR:  " + e);
-            });
-
-    // Public //
-        app.use(express.static(path.join(__dirname, "public")));
+// Public //
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes Dependencies //
-    const user = require("./routes/user");
-    const customer = require("./routes/customer");
-    const merchan = require("./routes/merchan");
-    const category = require("./routes/category");
-    const task = require("./routes/task");
+const user = require("./routes/user");
+const customer = require("./routes/customer");
+const merchan = require("./routes/merchan");
+const category = require("./routes/category");
+const task = require("./routes/task");
 
 // Routes //
-    app.get("/", (req, res) => {
-        res.render("home");
+app.get("/", async (req, res) => {
+    const Task = mongoose.model("task");
+
+    let taskDone = await Task.find({ status: false });
+    let earnings = 0;
+    let tot = taskDone.map(each => {
+        earnings += each.earnings;
+        if (earnings > 0) {
+            return `Faturamento: R$ ${earnings}`;
+        }
     });
-    app.use("/user", user);
-    app.use("/customer", customer);
-    app.use("/merchandise", merchan);
-    app.use("/category", category);
-    app.use("/task", task);
+
+    let taskToBeDone = await Task.find({ status: true });
+    let taskCount = taskToBeDone.length;
+    if (taskCount > 0) {
+        let task = `${taskCount} Novas Tarefas`;
+        res.render("home", { taskCount: task, earnings: tot });
+    } else {
+        res.render("home", { earnings: tot });
+    }
+});
+app.use("/user", user);
+app.use("/customer", customer);
+app.use("/merchandise", merchan);
+app.use("/category", category);
+app.use("/task", task);
 
 // Express Server //
-    const PORT = process.env.PORT || 8000;
-    app.listen(PORT, () => {
-        console.log(`Server running at port ${PORT}`);
-    });
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+    console.log(`Server running at port ${PORT}`);
+});
