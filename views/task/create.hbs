@@ -4,16 +4,16 @@
         <div class="card-body">
             <form method="POST" action="/task/create">
                 <div class="form-group">
-                        <div class="form-label-group mb-3 col-md-6">
-                            <select class="form-control" name="customer">
-                                <option value="">Selecione um cliente</option>
-                                {{#each customers}}
-                                <option value="{{name}}">{{name}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
+                    <div class="form-label-group mb-3 col-md-6">
+                        <select class="form-control" name="customer">
+                            <option value="">Selecione um cliente</option>
+                            {{#each customers}}
+                            <option value="{{name}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
                     <div class="form-label-group col-md-6">
-                        <input type="text" name="details" class="form-control mb-3" >
+                        <input type="text" name="details" class="form-control mb-3">
                         <label for="details">Detalhes</label>
                     </div>
                     <div class=" form-label-group mb-3 col-md-6">
@@ -39,14 +39,52 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row col-md-10 ml-1">
-                        {{#each merchandise}}
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" name="merchandise" value="{{category}} {{subcategory}}">
-                            <label class="form-check-label" for="merchandise">{{category}} {{subcategory}}</label>
+
+                    <div class="form-label-group mb-3 col-md-10">
+                        <div class="row">
+                            <div id="dynamicDiv">
+                                <p>
+                                    <select class="form-control" name="merchandise">
+                                        <option value="">Selecione um produto</option>
+                                        {{#each merchandise}}
+                                        <option value="{{name}}">{{category}}{{name}}</option>
+                                        {{/each}}
+                                    </select>
+
+                                    <a class="btn btn-danger btn-sm" href="javascript:void(0)" id="remInput"><i
+                                            class="fas fa-minus"></i></a>
+                                </p>
+                            </div>
+                            <div>
+                                <a class="btn btn-dark btn-sm" href="javascript:void(0)" id="addInput">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
                         </div>
-                        {{/each}}
+                        <script>
+                            $(function () {
+                                var scntDiv = $('#dynamicDiv');
+                                $(document).on('click', '#addInput', function () {
+                                    $(`<p>
+                                        <select class="form-control" name="customer">
+                                            <option value="">Selecione um produto</option>
+                                            {{#each merchandise}}
+                                            <option value="{{_id}}">{{category}}{{name}}</option>
+                                            {{/each}}
+                                        </select>
+
+                                        <a class="btn btn-danger btn-sm" href="javascript:void(0)" id="remInput"><i class="fas fa-minus"></i></a>
+                                     </p>`).appendTo(scntDiv);
+                                    return false;
+                                });
+                                $(document).on('click', '#remInput', function () {
+                                    $(this).parents('p').remove();
+                                    return false;
+                                });
+                            });
+                        </script>
                     </div>
+
                     <div class="col-md-6 mb-3">
                         <div class="form-label-group">
                             <input type="date" name="deadline" id="deadline" required>
@@ -60,11 +98,11 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                    <div class="row">
-                        <button type="submit" class="ml-3 btn btn-primary btn-md">Salvar</button>
-                        <a href="/task" class="ml-3 btn btn-danger btn-md">Cancelar</a>
+                        <div class="row">
+                            <button type="submit" class="ml-3 btn btn-primary btn-md">Salvar</button>
+                            <a href="/task" class="ml-3 btn btn-danger btn-md">Cancelar</a>
+                        </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>

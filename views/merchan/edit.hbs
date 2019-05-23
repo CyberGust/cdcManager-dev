@@ -1,18 +1,18 @@
 <div class="container">
     <div class="card card-register mx-auto mt-5">
-        <div class="card-header">Registro de <b>MERCADORIA</b></div>
+        <div class="card-header">Editando <b>MERCADORIA</b></div>
         <div class="card-body">
             <form method="POST" action="/merchandise/create">
                 <div class="col-md-6 mb-3">
                     <div class="form-label-group">
-                        <input type="text" name="name" class="form-control" required="required">
+                        <input type="text" name="name" class="form-control" value="{{name}}" required="required">
                         <label for="name">Nome</label>
                     </div>
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <div class="form-label-group">
-                        <input type="number" name="code" class="form-control">
+                        <input type="number" name="code" class="form-control" value="{{code}}">
                         <label for="code">Código do Produto</label>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                     <div class="form-label-group mb-3">
                         <select class="form-control" name="category">
-                            <option value="">Selecione uma categoria</option>
+                            <option value="{{category}}">Selecione uma categoria</option>
                             {{#each categories}}
                             <option value="{{name}}">{{name}}</option>
                             {{/each}}
@@ -30,11 +30,11 @@
 
                     <div class="col-md-6">
                         <div class="form-label-group mb-3">
-                            <input type="text" name="sellPrice" class="form-control" required>
+                            <input type="text" name="sellPrice" class="form-control" value="{{sellPrice}}">
                             <label for="sellPrice"><small>Valor de venda</small> R$</label>
                         </div>
                         <div class="form-label-group mb-3">
-                            <input type="text" name="buyPrice" class="form-control" required>
+                            <input type="text" name="buyPrice" class="form-control" value="{{buyPrice}}">
                             <label for="buyPrice"><small>Valor de compra</small> R$</label>
                         </div>
                     </div>

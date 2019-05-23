@@ -74,34 +74,28 @@ const customer = require("./routes/customer");
 const merchan = require("./routes/merchan");
 const category = require("./routes/category");
 const task = require("./routes/task");
+const provider = require("./routes/provider");
 
 // Routes //
 app.get("/", async (req, res) => {
     const Task = mongoose.model("task");
+    let taskExecuted = await Task.find({ status: false });
+    let taskExecuting = await Task.find({ status: true });
+    let taskCounter = taskExecuting.length;
+    let tot = Number(0);
 
-    let taskDone = await Task.find({ status: false });
-    let earnings = 0;
-    let tot = taskDone.map(each => {
-        earnings += each.earnings;
-        if (earnings > 0) {
-            return `Faturamento: R$ ${earnings}`;
-        }
+    taskExecuted.map(task => {
+        tot += Number(task.earnings);
     });
 
-    let taskToBeDone = await Task.find({ status: true });
-    let taskCount = taskToBeDone.length;
-    if (taskCount > 0) {
-        let task = `${taskCount} Novas Tarefas`;
-        res.render("home", { taskCount: task, earnings: tot });
-    } else {
-        res.render("home", { earnings: tot });
-    }
+    res.render("home", { earnings: tot, taskCounter: taskCounter });
 });
 app.use("/user", user);
 app.use("/customer", customer);
 app.use("/merchandise", merchan);
 app.use("/category", category);
 app.use("/task", task);
+app.use("/provider", provider);
 
 // Express Server //
 const PORT = process.env.PORT || 8000;

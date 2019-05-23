@@ -1,26 +1,26 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Category = new Schema ({
+const Provider = new Schema ({
     name: {
-        type: String,
+        type: Object,
         required: true
     },
-    providerID: {
+    address: {
         type: Array,
         required: false
     },
-    gender: {
+    document: {
         type: String,
-        required: true
+        required: false
     },
-    mustHave: {
-        type: Number,
-        default: 0
+    phone: {
+        type: String,
+        required: false
     },
-    has: {
-        type: Number,
-        default:0
+    merchandise: {
+        type: Array,
+        required: false
     },
     createdAt: {
         type: Date,
@@ -28,4 +28,4 @@ const Category = new Schema ({
     }
 });
 
-mongoose.model('category', Category);
+mongoose.model('provider', Provider);

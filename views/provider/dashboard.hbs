@@ -1,0 +1,81 @@
+<body id="page-top">
+    {{>_navbar}}
+  <div id="wrapper">
+    {{>_sidebar}}
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/provider/new">Novo Fornecedor</a>
+          </li>
+          <li class="breadcrumb-item active">Fornecedores</li>
+        </ol>
+        
+    <!-- Page Content -->
+
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Fornecedores</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Contato</th>
+                    <th>Endereço</th>
+                    <th>Documento</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Contato</th>
+                    <th>Endereço</th>
+                    <th>Documento</th>
+                    <th></th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  {{#each providers}}
+                  <tr>
+                    <td>{{name}}</td> 
+                    <td>{{phone}}</td>
+                    <td>{{address}}</td>
+                    <td>{{document}}</td>
+                    <td>
+                      <div class="form-row ml-3">
+                        <form action="/provider/delete" method="POST">
+                          <input type="hidden" name="id" value="{{_id}}">
+                          <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
+                        </form>
+                        <a href="/provider/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i></td></a>
+                      </div>
+                  </tr>
+                </tbody>
+                {{/each}}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- /.container-fluid -->
+
+    {{>_footer}}
+    <!-- /.content-wrapper -->
+  </div>
+  <!-- /#wrapper -->
+  {{>_logout}}
+  {{>_scrolltop}}
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+</body>
+</html>

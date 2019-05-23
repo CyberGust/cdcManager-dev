@@ -2,7 +2,7 @@
 ERP designed to help Beer-Men and their business.
 
 # To do:
-Create [5/7] => {
+Create [6/6] => {
 	User[ OK ]:
 		Name, Email, Phone_number, Password, isAdmin, Creation_date,
 
@@ -11,9 +11,9 @@ Create [5/7] => {
 
 	Category[ OK ]:
 		Name, Description,
-
-	Sub-category[ OK ]:
-		Category, Description,
+	
+	Provider[ OK ]:
+		Name, Address, Document, Phone, Merchandise,
 
 	Merchan[ OK ]:
 		Category, Sub-category, Details, Id, Creation_date,
@@ -22,8 +22,9 @@ Create [5/7] => {
 		Customer, Merchandise, Gender, Details, Earnings, Deadline, Status
 }
 
-Read [4.3/5] => {
+Read [6/6] => {
 	User[ OK ]
+	Provider[ OK ]
 	Customer[ OK ]
 	Category[ OK ]
 	Sub-category[ OK ]
@@ -33,26 +34,22 @@ Read [4.3/5] => {
 	]
 	Merchandise[
 		All[ OK ]
-		Sale[]
-		Rent[]
-		Consumable[]
+		Sale[ OK ]
+		Rent[ OK ]
 	]
 }
 
-Update [0/5.3] => {
+Update [3/6] => {
 	User[]
+	Provider[ OK ]
 	Customer[]
 	Category[]
-	Sub-category[]
 	Task[ OK ]
-	Merchandise[
-		from-Sale[]
-		from-Rent[]
-		from-Consumable[]
-	]
+	Merchandise[ OK ]
 }
-Delete [4/5] => {
+Delete [5/6] => {
 	User[]
+	Provider[ OK ]
 	Customer[ OK ]
 	Category[ OK ]
 	Sub-category[ OK ]

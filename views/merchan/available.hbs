@@ -10,7 +10,13 @@
           <li class="breadcrumb-item">
             <a href="/merchandise/create">Novo Produto</a>
           </li>
-          <li class="breadcrumb-item active">Estoque</li>
+          <li class="breadcrumb-item">
+            <a href="/merchandise/sell">Vendidos</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/merchandise/rent">Alocados</a>
+          </li>
+          <li class="breadcrumb-item active">Disponíveis</li>
         </ol>
         
     <!-- Page Content -->
@@ -18,36 +24,40 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Mercadorias</div>
+            Mercadorias Disponíveis</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Título</th>
                     <th>Código</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Custo</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
                   <tr>
-                    <th>ID</th>
-                    <th>Título</th>
                     <th>Código</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Custo</th>
                     <th></th>
                   </tr>
                 </tfoot>
                 <tbody>
                   {{#each merchandise}}
                   <tr>
-                    <td>{{id}}</td>
-                    <td>{{subcategory}}</td> 
-                    <td>{{details}}</td>
+                    <td>{{code}}</td>
+                    <td>{{name}}</td> 
+                    <td>R${{sellPrice}}</td>
+                    <td>R${{buyPrice}}</td>
                     <td>
                       <div class="form-row ml-3">
                         <form action="/merchandise/delete" method="POST">
+                          <input type="hidden" name="category" value="{{category}}">
                           <input type="hidden" name="id" value="{{_id}}">
                           <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
                         </form>

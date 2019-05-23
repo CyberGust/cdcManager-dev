@@ -2,21 +2,34 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Merchan = new Schema ({
-    category: {
+    name: {
         type: Array,
         required: true
     },
-    subcategory: {
-        type: Array,
+    code: {
+        type: Number,
         required: false
     },
-    details: {
+    category: {
         type: String,
-        required: true
+        required: false
     },
-    id: {
+    sellPrice: {
+        type: Number,
+        require: true
+    },
+    buyPrice: {
+        type: Number,
+        required: false
+    },
+    status: {
         type: String,
-        require: false
+        required: true,
+        default: "available"
+    },
+    provider: {
+        type: Object,
+        required: false
     },
     createdAt: {
         type: Date,

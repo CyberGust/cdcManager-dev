@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 require("../models/Customer");
 const Customer = mongoose.model("customer");
 
-// Routes
 // Home //
 router.get("/", async (req, res) => {
     const customer = await Customer.find({}).sort({ name: "asc" });

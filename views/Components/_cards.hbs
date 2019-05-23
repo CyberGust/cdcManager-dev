@@ -22,10 +22,10 @@
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-list"></i>
                 </div>
-                {{#if taskCount}}
-                <div class="mr-5">{{taskCount}}</div>
+                {{#if taskCounter}}
+                <div class="mr-5">{{taskCounter}}</div>
                 {{else}}
-                <div class="mr-5">Você não registrou nenhuma tarefa.</div>
+                <div class="mr-5">Não há tarefa em andamento.</div>
                 {{/if}}
               </div>
               <a class="card-footer text-white clearfix small z-1" href="/task">
@@ -43,7 +43,7 @@
                   <i class="fas fa-fw fa-coins"></i>
                 </div>
                 {{#if earnings}}
-                <div class="mr-5">{{earnings}} <small> dados deste mês</small></div>
+                <div class="mr-5">R${{earnings}} <br><small> dados deste mês</small></div>
                 {{else}}
                 <div class="mr-5">Você não possui entradas.</div>
                 {{/if}}

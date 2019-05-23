@@ -1,22 +1,19 @@
 <body id="page-top">
-    {{>_navbar}}
+  {{>_navbar}}
   <div id="wrapper">
     {{>_sidebar}}
     <div id="content-wrapper">
       <div class="container-fluid">
-        
+
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="/category/create-category">Nova Categoria</a>
+            <a href="/category/create">Nova Categoria</a>
           </li>
-          <li class="breadcrumb-item">
-            <a href="/category/create-subcategory">Nova Subcategoria</a>
-          </li>
-          <li class="breadcrumb-item active">Estoque</li>
+          <li class="breadcrumb-item active">Categorias</li>
         </ol>
-        
-    <!-- Page Content -->
+
+        <!-- Page Content -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
@@ -27,86 +24,45 @@
                 <thead>
                   <tr>
                     <th>Categoria</th>
-                    <th>Subcategorias</th>
-                    <th>Descrição</th>
                     <th>Gênero</th>
+                    <th>Fornecedor</th>
+                    <th>Em estoque</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
                     <th>Categoria</th>
-                    <th>Subcategorias</th>
-                    <th>Descrição</th>
                     <th>Gênero</th>
+                    <th>Fornecedor</th>
+                    <th>Em estoque</th>
                     <th></th>
                   </tr>
                 </tfoot>
                 <tbody>
                   {{#each categories}}
                   <tr>
-                    <td>{{name}}</td> 
-                    <td>{{subcategory}}</td>
-                    <td>{{description}}</td>
+                    <td>{{name}}</td>
                     <td>{{gender}}</td>
+                    <td>{{providerID}}</td>
+                    <td>{{has}}</td>
                     <td>
                       <div class="form-row ml-3">
                         <form action="/category/delete" method="POST">
                           <input type="hidden" name="id" value="{{_id}}">
-                          <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
+                          <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i
+                              class="fas fa-user-times"></i></button>
                         </form>
-                        <a href="/customer/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i></td></a>
-                      </div>
-                    </td>
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
+                        <a href="/customer/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i>
+                    </td></a>
             </div>
+            </td>
+            </tr>
+            {{/each}}
+            </tbody>
+            </table>
           </div>
-
-        
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            Subcategorias</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th></th>
-                  </tr>
-                  </tr>
-                </tfoot>
-                <tbody>
-                  {{#each subcategories}}
-                  <tr>
-                    <td>{{name}}</td> 
-                    <td>{{description}}</td>
-                    <td>
-                      <div class="form-row ml-3">
-                        <form action="/category/deletee" method="POST">
-                          <input type="hidden" name="id" value="{{_id}}">
-                          <button onclick="deleteCheck()" type="submit" class="mr-1 btn btn-danger btn-sm"><i class="fas fa-user-times"></i></button>
-                        </form>
-                        <a href="/category/edit/{{_id}}" class="ml-1 btn btn-dark btn-sm"><i class="fas fa-edit"></i></td></a>
-                      </div>
-                    </td>
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </div>
-          </div>
+        </div>
       </div>
       <!-- /.container-fluid -->
       {{>_footer}}
@@ -114,14 +70,15 @@
     </div>
     <!-- /#wrapper -->
 
-      {{>_logout}}
-      {{>_scrolltop}}
-      <!-- Bootstrap core JavaScript-->
-      <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <!-- Core plugin JavaScript-->
-      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-      <!-- Custom scripts for all pages-->
-      <script src="js/sb-admin.min.js"></script>
+    {{>_logout}}
+    {{>_scrolltop}}
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
 </body>
+
 </html>

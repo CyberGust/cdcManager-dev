@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Subcategory = new Schema ({
+const Merchan = new Schema ({
     name: {
-        type: Object,
+        type: Array,
         required: true
     },
-    description: {
+    address: {
         type: String,
-        require: false
+        required: true
+    },
+    merchan: {
+        type: Array,
+        required: false
     },
     createdAt: {
         type: Date,
@@ -16,4 +20,4 @@ const Subcategory = new Schema ({
     }
 });
 
-mongoose.model('subcategory', Subcategory);
+mongoose.model('merchan', Merchan);
