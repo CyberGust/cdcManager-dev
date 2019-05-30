@@ -13,7 +13,9 @@ require("./models/Task");
 
 // Config
 // Body Parser //
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 app.use(require("method-override")());
 
@@ -57,7 +59,9 @@ app.use((req, res, next) => {
 // Mongoose //
 mongoose.Promise = global.Promise;
 mongoose
-    .connect("mongodb://localhost/dev", { useNewUrlParser: true })
+    .connect("mongodb://localhost/dev", {
+        useNewUrlParser: true
+    })
     .then(() => {
         console.log("Database connection succefull.");
     })
@@ -79,8 +83,12 @@ const provider = require("./routes/provider");
 // Routes //
 app.get("/", async (req, res) => {
     const Task = mongoose.model("task");
-    let taskExecuted = await Task.find({ status: false });
-    let taskExecuting = await Task.find({ status: true });
+    let taskExecuted = await Task.find({
+        status: false
+    });
+    let taskExecuting = await Task.find({
+        status: true
+    });
     let taskCounter = taskExecuting.length;
     let tot = Number(0);
 
@@ -88,7 +96,10 @@ app.get("/", async (req, res) => {
         tot += Number(task.earnings);
     });
 
-    res.render("home", { earnings: tot, taskCounter: taskCounter });
+    res.render("home", {
+        earnings: tot,
+        taskCounter: taskCounter
+    });
 });
 app.use("/user", user);
 app.use("/customer", customer);
