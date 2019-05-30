@@ -29,6 +29,7 @@ router.get("/sell", async (req, res) => {
 router.get("/rent", async (req, res) => {
     const merchandise = await Merchan.find({ status: "rent" })
       .sort({ name: "asc" });
+
     res.render("merchan/rented", { merchandise: merchandise });
 });
 
@@ -44,7 +45,6 @@ router.get("/create", async (req, res) => {
 
 router.post("/create", async (req, res) => {
     let error = [];
-    const name = req.body.name;
     const code = req.body.code;
     const category = req.body.category;
     const sellPrice = req.body.sellPrice;
@@ -52,11 +52,6 @@ router.post("/create", async (req, res) => {
     const provider = req.body.provider;
 
     // Begin of validation
-    if (!name || name === undefined || typeof name === null) {
-        error.push({
-            error_message: "Nome em branco ou inválido."
-        });
-    }
 
     if (!sellPrice || sellPrice === undefined || typeof sellPrice === null) {
         error.push({
@@ -77,7 +72,6 @@ router.post("/create", async (req, res) => {
     } else {
         // Starting the user creation at Database
         const newMerchan = new Merchan({
-            name: name,
             code: code,
             category: category,
             sellPrice: sellPrice,
@@ -111,7 +105,6 @@ router.get("/edit/:id", async (req, res) => {
 router.post("/edit", async (req, res) => {
     // Begin of the validation
     let $id = req.body.id
-    let $name = req.body.name;
     let $code = req.body.code;
     let $category = req.body.category;
     let $sellPrice = req.body.sellPrice;
@@ -120,7 +113,6 @@ router.post("/edit", async (req, res) => {
 
     try {
         const merchan = await Merchan.findOne({ _id: $id });
-        merchan.name = $name;
         merchan.code = $code;
         merchan.category = $category;
         merchan.sellPrice = $sellPrice;
@@ -150,12 +142,16 @@ router.post("/delete", async (req, res) => {
             category.save();
         });
 
-        await Merchan.findOneAndDelete({ _id: req.body.id }).then(() => {
-            res.redirect("/merchandise");
-        });
+        function deleteMerchan() {
+          Merchan.findOneAndDelete({ _id: req.body.id }).then(() => {
+              res.redirect("/merchandise")
+          });
+        }
+        await deleteMerchan();
+
     } catch (error) {
-        console.log(error);
-    }
+        await deleteMerchan();
+      }
 });
 
 module.exports = router;

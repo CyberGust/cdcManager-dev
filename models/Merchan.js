@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Merchan = new Schema ({
-    name: {
-        type: Array,
-        required: true
-    },
     code: {
         type: Number,
         required: false
@@ -33,7 +29,7 @@ const Merchan = new Schema ({
     },
     createdAt: {
         type: Date,
-        default: Date.now() 
+        default: Date.now()
     }
 });
 
